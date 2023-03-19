@@ -12,12 +12,16 @@ keymap.set("n", "<leader>sx", ":close<CR>")
 --Close Currently Open Buffer
 keymap.set("n", "<leader>q", ":bd<CR>")
 
+--Mapping for Code Folding
+keymap.set("n", "zR", require('ufo').openAllFolds)
+keymap.set("n", "zM", require('ufo').closeAllFolds)
+
 --Mappings for BufferLine
 keymap.set("n", "<leader>c", ":BufferLineCyclePrev<CR>")
 keymap.set("n", "<leader>v", ":BufferLineCycleNext<CR>")
 
 --Mappings for Nvim-Tree
-keymap.set("n", "<leader>pv", ":NvimTreeToggle<CR>")
+keymap.set("n", "<leader>ft", ":NvimTreeToggle<CR>")
 
 --Mappings for Zen-Mode.nvim
 keymap.set("n", "<leader>z", ":ZenMode<CR>")

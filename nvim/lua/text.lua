@@ -7,10 +7,12 @@ opt.list = true
 g.Hexokinase_highlighters = { "backgroundfull" }
 
 --Scroll
-require('neoscroll').setup()
+--require('neoscroll').setup()
+require('mini.animate').setup()
 
 --Comment
 require('Comment').setup()
+
 --Autopairs
 require("nvim-autopairs").setup{}
 
@@ -20,27 +22,33 @@ require("indent_blankline").setup {
     show_current_context_start = true,
 }
 
+--Code Folding
+require('ufo').setup({
+	provider_selector = function (bufnr, filetype, buftype)
+		return { 'treesitter', 'indent' }
+	end
+})
+
 --Zen Mode and Twilight
 require("zen-mode").setup {
     backdrop = 0.75,
     width = .85,
     options = {
-	number = true,
-	cursorline = false,
-	cursorcolumn = false,
+		number = true,
+		cursorline = false,
+		cursorcolumn = false,
     },
     plugins = {
-	twilight = { enabled = true }
+		twilight = { enabled = true }
     }
 }
 
 require("twilight").setup {
     dimming = {
-	alpha = 0.4
+		alpha = 0.4
     },
     treesitter = true,
 }
 
 --Markdown Preview
 g.mkdp_auto_start = 1
-
