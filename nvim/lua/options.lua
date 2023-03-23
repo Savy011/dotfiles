@@ -22,10 +22,13 @@ opt.ignorecase = true
 opt.smartcase = true
 
 opt.splitright = true
+--opt.splitbottom = false
 
 opt.iskeyword:append("-")
 
-o.foldcolumn = '1'
+o.conceallevel = 2
+
+o.foldcolumn = '0'
 o.foldlevel = 99 
 o.foldlevelstart = 99
 o.foldenable = true

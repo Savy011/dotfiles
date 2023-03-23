@@ -34,3 +34,8 @@ local cmp_config = lsp.defaults.cmp_config({
 
 cmp.setup(cmp_config)
 
+require("lsp_lines").setup()
+
+vim.diagnostic.config({
+  virtual_text = false,
+})

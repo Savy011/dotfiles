@@ -1,14 +1,37 @@
 local opt = vim.opt
 local g = vim.g
+local handler = function(virtText, lnum, endLnum, width, truncate)
+    local newVirtText = {}
+    local suffix = ('  %d '):format(endLnum - lnum)
+    local sufWidth = vim.fn.strdisplaywidth(suffix)
+    local targetWidth = width - sufWidth
+    local curWidth = 0
+    for _, chunk in ipairs(virtText) do
+        local chunkText = chunk[1]
+        local chunkWidth = vim.fn.strdisplaywidth(chunkText)
+        if targetWidth > curWidth + chunkWidth then
+            table.insert(newVirtText, chunk)
+        else
+            chunkText = truncate(chunkText, targetWidth - curWidth)
+            local hlGroup = chunk[2]
+            table.insert(newVirtText, {chunkText, hlGroup})
+            chunkWidth = vim.fn.strdisplaywidth(chunkText)
+            -- str width returned from truncate() may less than 2nd argument, need padding
+            if curWidth + chunkWidth < targetWidth then
+                suffix = suffix .. (' '):rep(targetWidth - curWidth - chunkWidth)
+            end
+            break
+        end
+        curWidth = curWidth + chunkWidth
+    end
+    table.insert(newVirtText, {suffix, 'MoreMsg'})
+    return newVirtText
+end
 
 opt.list = true
 
 --Hexokinase
 g.Hexokinase_highlighters = { "backgroundfull" }
-
---Scroll
---require('neoscroll').setup()
-require('mini.animate').setup()
 
 --Comment
 require('Comment').setup()
@@ -26,7 +49,8 @@ require("indent_blankline").setup {
 require('ufo').setup({
 	provider_selector = function (bufnr, filetype, buftype)
 		return { 'treesitter', 'indent' }
-	end
+	end,
+    fold_virt_text_handler = handler
 })
 
 --Zen Mode and Twilight
@@ -49,6 +73,9 @@ require("twilight").setup {
     },
     treesitter = true,
 }
+
+--Vim-Markdown
+g.vim_markdown_folding_disabled = 1
 
 --Markdown Preview
 g.mkdp_auto_start = 1

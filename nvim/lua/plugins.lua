@@ -19,7 +19,12 @@ return {
     	{
 			'kevinhwang91/nvim-ufo', 
 			dependencies = 'kevinhwang91/promise-async'
-		}
+		},
+		'lervag/vimtex',
+		'godlygeek/tabular',
+		'preservim/vim-markdown',
+		'mzlogin/vim-markdown-toc',
+		'ErichDonGubler/lsp_lines.nvim'
 	},
     {
 		"iamcco/markdown-preview.nvim",
@@ -89,10 +94,6 @@ return {
 				"SmiteshP/nvim-navic",
 				"nvim-tree/nvim-web-devicons",
 			},
-		},
-		{
-			"echasnovski/mini.animate",
-			version = "*"
 		}
 	}
 }

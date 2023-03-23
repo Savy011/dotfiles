@@ -15,7 +15,10 @@ require('nvim-treesitter.configs').setup({
 		"mermaid",
 		"python",
 	},
-	hightlight = { enabled = true},
+	hightlight = {
+		enabled = true,
+		additional_vim_regex_highlighting = { "markdown" },
+	},
 	rainbow = {
 		enabled = true,
 		entended_mode = true

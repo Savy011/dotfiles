@@ -16,6 +16,9 @@ keymap.set("n", "<leader>q", ":bd<CR>")
 keymap.set("n", "zR", require('ufo').openAllFolds)
 keymap.set("n", "zM", require('ufo').closeAllFolds)
 
+--Toggle Lsp-Lines
+keymap.set("", "<leader>l", require("lsp_lines").toggle, { desc = "Toggle lsp_lines" })
+
 --Mappings for BufferLine
 keymap.set("n", "<leader>c", ":BufferLineCyclePrev<CR>")
 keymap.set("n", "<leader>v", ":BufferLineCycleNext<CR>")
