@@ -1,4 +1,4 @@
-vim.cmd[[colorscheme catppuccin-frappe]]
+vim.cmd[[colorscheme tokyonight]]
 
 require('nvim-treesitter.configs').setup({
 	ensure_installed = {
