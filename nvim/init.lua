@@ -11,23 +11,5 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
-
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
-require('lazy').setup('plugins')
-
-require('plugins')
-require('options')
-require('colors')
-require('text')
-require('keymaps')
-
-require('config.noice')
-require('config.alpha')
-require('config.lsp')
-require('config.statusline')
-require('config.nvim-tree')
-
+require("lazy").setup("plugins")
+require("opts")
