@@ -23,12 +23,83 @@ return {
 				"lazy"
 			},
 			show_trailing_blankline_indent = false,
-			show_current_context = false
+			show_current_context = false,
+		}
+	},
+	{
+		"echasnovski/mini.indentscope",
+		version = false,
+		event = { "BufReadPre", "BufNewFile" },
+		opts = {
+      symbol = "│",
+			options = { try_as_border = true }
+		},
+		init = function()
+			vim.api.nvim_create_autocmd("Filetype", {
+				pattern = {
+					"help",
+					"alpha",
+					"dashboard",
+					"neo-tree",
+					"Trouble",
+					"lazy",
+					"mason",
+					"notify",
+					"toggleterm",
+					"lazyterm"
+				},
+				callback = function()
+					vim.b.miniindentscope_disable = true
+				end
+			})
+		end
+	},
+	{
+		"akinsho/bufferline.nvim",
+		event = 'VeryLazy',
+		keys = {
+			{ "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle Pin" },
+			{ "<leader>bp", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete non-pinned buffers" }
+		},
+		opts = {
+			options = {
+				close_command = function(n) require("mini.bufremove").delete(n, false) end,
+				diagostics = "nvim_lsp",
+				always_show_bufferline = false,
+				offsets = {
+					{
+						filetype = "neo-tree",
+						text = "Neo-tree",
+						highlight = "Directory",
+						text_align = "left"
+					}
+				}
+			}
 		}
 	},
 	{
 		"nvim-tree/nvim-web-devicons",
 		lazy = true
+	},
+	{
+		"SmiteshP/nvim-navic",
+		lazy = true,
+		init = function()
+			vim.g.nvim_silence = true
+			require("util").on_attach(function(client, buffer)
+				if client.server_capabilities.documentSymbolProvider then
+					require("nvim-navic").attach(client, buffer)
+				end
+			end)
+		end,
+		opts = function()
+			return {
+				separator = " ",
+				highlight = true,
+				depth_highlight = 5,
+				icons = require("config").icons.kinds
+			}
+		end
 	},
 	{
 		"goolord/alpha-nvim",
@@ -90,5 +161,7 @@ return {
 				end
 			})
 		end,
-	}
+	},
+	{ "nvim-lua/plenary.nvim", lazy = true },
+	{ "MunifTanjim/nui.nvim", lazy = true }
 }
