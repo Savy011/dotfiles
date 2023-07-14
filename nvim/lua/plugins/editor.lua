@@ -13,7 +13,7 @@ return {
         desc = "Explorer NeoTree (root dir)", 
       }, 
       { 
-        "<leader>fE", 
+        "<leader>ft", 
         function() 
           require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() }) 
         end, 

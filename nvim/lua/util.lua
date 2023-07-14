@@ -35,7 +35,7 @@ function M.get_root()
         if path:find(r, 1, true) then 
           roots[#roots + 1] = r 
         end 
-			end 
+      end 
     end 
   end 
   table.sort(roots, function(a, b) 
@@ -48,38 +48,73 @@ function M.get_root()
     root = root and vim.fs.dirname(root) or vim.loop.cwd() 
   end 
   return root 
+end 
+  
+function M.telescope(builtin, opts) 
+  local params = { builtin = builtin, opts = opts } 
+  return function() 
+    builtin = params.builtin 
+    opts = params.opts 
+    opts = vim.tbl_deep_extend("force", { cwd = M.get_root() }, opts or {}) 
+    if builtin == "files" then 
+      if vim.loop.fs_stat((opts.cwd or vim.loop.cwd()) .. "/.git") then 
+        opts.show_untracked = true 
+        builtin = "git_files" 
+      else 
+        builtin = "find_files" 
+      end 
+    end 
+    if opts.cwd and opts.cwd ~= vim.loop.cwd() then 
+      opts.attach_mappings = function(_, map) 
+        map("i", "<a-c>", function() 
+          local action_state = require("telescope.actions.state") 
+          local line = action_state.get_current_line() 
+          M.telescope( 
+            params.builtin, 
+            vim.tbl_deep_extend("force", {}, params.opts or {}, { cwd = false, default_text = line }) 
+          )() 
+       end) 
+        return true 
+      end 
+  	end 
+  
+    require("telescope.builtin")[builtin](opts) 
+  end 
+end 
+  
+function M.toggle(option, silent, values) 
+  if values then 
+    if vim.opt_local[option]:get() == values[1] then 
+      vim.opt_local[option] = values[2] 
+    else 
+      vim.opt_local[option] = values[1] 
+    end 
+    return Util.info("Set " .. option .. " to " .. vim.opt_local[option]:get(), { title = "Option" }) 
+  end 
+  vim.opt_local[option] = not vim.opt_local[option]:get() 
+  if not silent then 
+    if vim.opt_local[option]:get() then 
+     Util.info("Enabled " .. option, { title = "Option" }) 
+     else 
+      Util.warn("Disabled " .. option, { title = "Option" }) 
+    end 
+  end 
+end 
+  
+local enabled = true 
+function M.toggle_diagnostics() 
+  enabled = not enabled 
+  if enabled then 
+    vim.diagnostic.enable() 
+    Util.info("Enabled diagnostics", { title = "Diagnostics" }) 
+  else 
+    vim.diagnostic.disable() 
+    Util.warn("Disabled diagnostics", { title = "Diagnostics" }) 
+  end 
 end
 
-function M.telescope(builtin, opts) 
-	local params = { builtin = builtin, opts = opts } 
-	return function() 
-		builtin = params.builtin 
-		opts = params.opts 
-		opts = vim.tbl_deep_extend("force", { cwd = M.get_root() }, opts or {}) 
-		if builtin == "files" then 
-			if vim.loop.fs_stat((opts.cwd or vim.loop.cwd()) .. "/.git") then 
-				opts.show_untracked = true 
-				builtin = "git_files" 
-			else 
-				builtin = "find_files" 
-			end 
-		end 
-		if opts.cwd and opts.cwd ~= vim.loop.cwd() then 
-			opts.attach_mappings = function(_, map) 
-				map("i", "<a-c>", function() 
-					local action_state = require("telescope.actions.state") 
-					local line = action_state.get_current_line() 
-					M.telescope( 
-						params.builtin, 
-						vim.tbl_deep_extend("force", {}, params.opts or {}, { cwd = false, default_text = line }) 
-					)() 
-				end) 
-				return true 
-			end 
-		end 
-
-		require("telescope.builtin")[builtin](opts) 
-	end 
+function M.has(plugin)
+	return require("lazy.core.config").spec.plugins[plugin] ~= nil
 end
 
 return M

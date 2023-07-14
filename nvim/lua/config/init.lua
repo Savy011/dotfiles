@@ -1,5 +1,6 @@
-return {
-	icons = { 
+local M = {} 
+
+M.icons = { 
 		dap = { 
 			Stopped = { "󰁕 ", "DiagnosticWarn", "DapStoppedLine" }, 
 			Breakpoint = " ", 
@@ -57,3 +58,5 @@ return {
 		}, 
 	}, 
 }
+
+return M
