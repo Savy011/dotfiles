@@ -51,7 +51,7 @@ return {
       }, 
       default_component_configs = { 
         indent = { 
-          with_expanders = true, -- if nil and file nesting is enabled, will enable expanders 
+          with_expanders = true, 
           expander_collapsed = "", 
           expander_expanded = "", 
           expander_highlight = "NeoTreeExpander", 
@@ -335,5 +335,28 @@ return {
         desc = "Next trouble/quickfix item", 
       }, 
     }, 
-  } 
+  },
+	{
+		"cameron-wags/rainbow_csv.nvim",
+		config = true,
+		ft = {
+			"csv",
+			"tsv",
+			"csv_semicolon",
+			"csv_whitespace",
+			"csv_pipe",
+			"rfc_csv",
+			"rfc_semicolon"
+		},
+		cmd = {
+			"RainbowDelim",
+			"RainbowDelimSimple",
+			"RainbowDelimQouted",
+			"RainbowMultiDelim"
+		}
+	},
+	{
+		"p00f/nvim-ts-rainbow",
+    event = { "BufReadPre", "BufNewFile" }
+	}
 }
