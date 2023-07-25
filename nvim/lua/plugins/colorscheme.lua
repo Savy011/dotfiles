@@ -3,8 +3,18 @@ return {
 		"folke/tokyonight.nvim",
 		lazy = false,
 		priority = 1000,
-		config = function()
-			vim.cmd([[colorscheme tokyonight-night]])
-		end
+		opts = {
+			styles = {
+				comments = { italic = false }
+			}
+		}
+	},
+	{
+		{
+			"catppuccin/nvim",
+			lazy = false,
+			name = "catppuccin",
+			priority = 1000
+		}
 	}
 }

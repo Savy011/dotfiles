@@ -25,6 +25,7 @@ return {
 			indent = { enable = true },
 			rainbow = {
 				enable = true,
+				disable = { "tsx" },
 				extended_mode = true,
 			},
 			ensure_installed = {

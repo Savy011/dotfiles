@@ -97,9 +97,20 @@ return {
 				separator = " ",
 				highlight = true,
 				depth_highlight = 5,
-				icons = require("config").icons.kinds
 			}
 		end
+	},
+	{
+		"utilyre/barbecue.nvim",
+		name = "barbecue",
+		version = "*",
+		dependencies = {
+			"SmiteshP/nvim-navic",
+			"nvim-tree/nvim-web-devicons", -- optional dependency
+		},
+		opts = {
+			show_dirname = false
+		},
 	},
 	{
 		"goolord/alpha-nvim",
