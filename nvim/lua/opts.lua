@@ -1,17 +1,17 @@
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.signcolumn = "yes"
-
+vim.o.hlsearch = false
+vim.wo.number = true
+vim.o.mouse = 'a'
+vim.o.clipboard = 'unnamedplus'
+vim.o.breakindent = true
+vim.o.undofile = true
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.wo.signcolumn = 'yes'
+vim.o.updatetime = 250
+vim.o.timeoutlen = 300
+vim.o.completeopt = 'menuone,noselect'
+vim.o.termguicolors = true
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.autoindent = true
 vim.opt.smartindent = true
-
-vim.opt.cursorline = true
-vim.opt.termguicolors = true
-
-vim.opt.scrolloff = 8
-vim.opt.clipboard = "unnamedplus"
