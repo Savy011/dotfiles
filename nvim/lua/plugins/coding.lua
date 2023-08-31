@@ -5,6 +5,7 @@ return {
     event = "InsertEnter",
     opts = {}
   },
+  'windwp/nvim-ts-autotag',
   {
     "RRethy/vim-illuminate",
     event = { "BufReadPost", "BufNewFile" },

@@ -18,8 +18,9 @@ require('lazy').setup("plugins")
 require("opts")
 require("keymaps")
 vim.cmd [[colorscheme tokyonight-night]]
+
 require('nvim-treesitter.configs').setup {
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'ocaml', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim' },
+  ensure_installed = { 'astro', 'c', 'cpp', 'go', 'lua', 'ocaml', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim' },
   auto_install = false,
   highlight = { enable = true },
   indent = { enable = true },
@@ -31,6 +32,9 @@ require('nvim-treesitter.configs').setup {
       scope_incremental = '<c-s>',
       node_decremental = '<M-space>',
     },
+  },
+  autotag = {
+    enable = true
   },
   textobjects = {
     select = {
